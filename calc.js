@@ -1,6 +1,3 @@
-// Estruturando a calculadora
-// Passo 3: Melhorando a lógica de cálculo
-
 document.addEventListener("DOMContentLoaded", function () {
     const display = document.getElementById("display");
     const buttons = document.querySelectorAll(".btn");
@@ -20,6 +17,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 display.value = "";
             } else if (value === "equals") {
                 calcularExpressao();
+            } else if (value === "decimal") {
+                // Impede que mais de um ponto seja inserido
+                if (!display.value.includes(".")) {
+                    display.value += ".";
+                }
             } else {
                 display.value += value;
             }
@@ -36,6 +38,11 @@ document.addEventListener("DOMContentLoaded", function () {
             display.value = display.value.slice(0, -1);
         } else if (event.key === "Escape") {
             display.value = "";
+        } else if (event.key === ".") {
+            // Impede que mais de um ponto seja inserido com a tecla de atalho
+            if (!display.value.includes(".")) {
+                display.value += ".";
+            }
         }
     });
 });
@@ -61,34 +68,50 @@ document.body.innerHTML = `
             <button class="btn" data-value="clear">C</button>
             <button class="btn" data-value="equals">=</button>
             <button class="btn" data-value="+">+</button>
+            <button class="btn" data-value="decimal">.</button>
         </div>
     </div>
     <style>
         .calculator {
-            width: 200px;
+            width: 220px;
             margin: 50px auto;
             padding: 20px;
             border: 1px solid #ccc;
-            border-radius: 5px;
-            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background-color: #f9f9f9;
         }
         #display {
             width: 100%;
             height: 40px;
             margin-bottom: 10px;
-            font-size: 18px;
+            font-size: 24px;
             text-align: right;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
         }
         .buttons {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 5px;
+            gap: 10px;
         }
         .btn {
             width: 100%;
-            height: 40px;
-            font-size: 18px;
+            height: 50px;
+            font-size: 20px;
+            background-color: #f1f1f1;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #ddd;
+        }
+        .btn:active {
+            background-color: #ccc;
         }
     </style>
-`
+`;

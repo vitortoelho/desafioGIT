@@ -1,7 +1,3 @@
-Aqui está um modelo de README para o seu projeto de calculadora:
-
----
-
 # Calculadora Web
 
 Este é um projeto de calculadora simples desenvolvida em JavaScript, HTML e CSS. Ele oferece funcionalidades de cálculo básico, incluindo adição, subtração, multiplicação, divisão, e o uso do ponto decimal, com suporte também para teclado.

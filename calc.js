@@ -1,10 +1,17 @@
 // Estruturando a calculadora
-// Passo 2: Criar a interface visual
+// Passo 3: Melhorando a lógica de cálculo
 
-// Criar um listener para os botões da calculadora
 document.addEventListener("DOMContentLoaded", function () {
     const display = document.getElementById("display");
     const buttons = document.querySelectorAll(".btn");
+
+    function calcularExpressao() {
+        try {
+            display.value = eval(display.value) || ""; // Evita erros ao pressionar igual sem valor
+        } catch {
+            display.value = "Erro";
+        }
+    }
 
     buttons.forEach(button => {
         button.addEventListener("click", function () {
@@ -12,15 +19,24 @@ document.addEventListener("DOMContentLoaded", function () {
             if (value === "clear") {
                 display.value = "";
             } else if (value === "equals") {
-                try {
-                    display.value = eval(display.value); // Nota: Usar eval não é seguro para produção
-                } catch {
-                    display.value = "Erro";
-                }
+                calcularExpressao();
             } else {
                 display.value += value;
             }
         });
+    });
+
+    // Adicionando suporte ao teclado
+    document.addEventListener("keydown", function (event) {
+        if (/^[0-9+\-*/.]$/.test(event.key)) {
+            display.value += event.key;
+        } else if (event.key === "Enter") {
+            calcularExpressao();
+        } else if (event.key === "Backspace") {
+            display.value = display.value.slice(0, -1);
+        } else if (event.key === "Escape") {
+            display.value = "";
+        }
     });
 });
 
